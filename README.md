@@ -1,5 +1,6 @@
 # codigo_TCC
-Para conseguir acesso ao sistema deve ser feito os seguintes procedimentos no Postgressql:
+## Como acessar o sistema
+* Para conseguir acesso ao sistema deve ser feito os seguintes procedimentos no Postgressql:
 
 1. Ter o Postgresql instalado
 
@@ -7,8 +8,8 @@ Para conseguir acesso ao sistema deve ser feito os seguintes procedimentos no Po
 
 3. No Postgresql crie um database chamado "sgqdb" (sem as aspas)
 
-4.Rodar a seguinte query:
-
+4. Rodar a seguinte query:
+```
 INSERT INTO usuario VALUES (0,true,'Coordenador','teste@teste.com','029.011.628-53','Marcelo','$2a$10$TAj4Z9.aEEKdy8O/21vZReEv1/uJYAPxjhJcwLiIxLftq1MAC.JqC');
 INSERT INTO coordenador VALUES(0);
 INSERT INTO permissao VALUES (0,'PG_CADASTRA_PROVA')
@@ -31,5 +32,5 @@ INSERT INTO permissao_usuario VALUES
 (0,6),
 (0,7),
 (0,8);
-
+```
 5. Rodar o aplicativo e inserir no usuário 029.011.628-53 e a senha 123 e logar no sistema. (Talvez seja necessário atualizar as dependências do maven antes. O aplicativo roda na porta 8080, localhost:8080)
