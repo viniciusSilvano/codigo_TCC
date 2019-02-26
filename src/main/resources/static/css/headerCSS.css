@@ -1,0 +1,36 @@
+				/* Cabeçalho */
+	
+				.navbar-brand>img {
+				  height: auto;
+				  padding: 15px;
+				  width: auto;
+				}
+
+				.glyphiconMenu{
+					font-size: 25px;
+				}
+
+
+				.container-fluid{
+				  padding-left: 0px;
+				}
+
+				.navbar-header a{
+				  margin-left: 0px;
+				}
+
+				
+				#barradaLogo{
+					background-color: rgb(44, 158, 66);
+					background-image: none;
+					height: 75px;
+				}		
+				
+				.linkmenu{
+					padding: 0px;
+				}
+
+				#TituloNavHeader{
+					color: white;
+				}
+				

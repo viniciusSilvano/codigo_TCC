@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+	<head>
+			<title> Consultar Questão</title>
+			<object th:replace="util/imports :: Osimports"></object>
+			
+			<!-- <script src="/jqueryui/js/jquery-ui.js" th:src="@{/jqueryui/js/jquery-ui.js}"></script>
+			<link rel="stylesheet" href="/jqueryui/css/jquery-ui.css" th:href="@{/jqueryui/css/jquery-ui.css}"/>
+			<link rel="stylesheet" href="/jqueryui/css/jquery-ui.structure.css" th:href="@{/jqueryui/css/jquery-ui.structure.css}"/>
+			<link rel="stylesheet" href="/jqueryui/css/jquery-ui.theme.css" th:href="@{//jqueryui/css/jquery-ui.theme.css}"/>
+			<script src="js/SelectAutoComplete.js" th:src="@{/js/SelectAutoComplete.js}"></script>
+			<link rel="stylesheet" href="/css/autoCompleteCategorystyle.css" th:href="@{/css/autoCompleteCategorystyle.css}"/>	-->			
+			<!-- Datatable -->
+			<script src="/js/DataTableExemplojs.js" th:src="@{/js/DataTableExemplojs.js}"></script>
+
+
+			<script>
+				$(document).ready(function(){
+					$('#btnVoltar').focus();
+				});
+				
+				function RequisicaoAjax(url,id){
+					$.ajax({
+						url: "/home/" + url + id,
+						success: function(data){
+							$('#localDaModal').html(data)
+							$('#Modal').modal("show");
+						}
+					});
+				}
+			</script>
+
+	</head>
+	<body>
+		<object th:replace="util/header :: header"></object>
+		<div id="localDaModal"></div>
+		<div class="container-fluid" role="complementary"> 
+			<div class="panel panel-default" style="display: inline">
+				<div class="panel-heading">
+					<div class="row">
+						 <h1 style="text-align:center" class="page-header light"> Consultar - Questão
+					
+						 </h1>
+					</div>
+				 </div>
+				 <div class="alert alert-success" role="alert"
+					th:if="${mensagemSucesso != null}">
+					<span th:text="${mensagemSucesso}"></span>
+				</div>
+				<div class="alert alert-danger" role="alert"
+					th:if="${mensagemErro != null}">
+					<span th:text="${mensagemErro}"></span>
+				</div>
+				
+				<div class="panel-body" >
+					<div class="panel panel-default" style="display: inline">
+						<div class="panel-body" >
+<!-- 							<form action="#">
+								<div class="input-group">
+									<input class="form-control" id="search" type="text" >
+									<span class="input-group-addon btn btn-default" id="basic-addon1">
+										<span class="glyphiconMenu glyphicon glyphicon-search"></span>
+									</span>
+								</div>	
+							</form> -->
+							<div class="table-responsive">
+								<table id="example" class="display table table-striped table-bordered  table-hover dt-responsive">
+									<thead>
+										<tr>
+											<th>Descrição</th>
+											<th>Taxonomia de Bloom</th>
+											<th>Situação</th>
+											<th>Disciplina</th>
+											<th>Dificuldade</th>
+											<th>Tipo da Questão</th>
+											<th th:if="${cargo} == 'Coordenador'">Responsável</th>
+											<th>Data De Inserção</th>
+											<th>Ações</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="questao : ${questoes}">
+											<td th:text="${questao.descricao}"></td>
+											<td th:text="${questao.classificacaoTaxonomiaBloom.getValor()}"></td>
+											<td th:text="${questao.situacao}"></td>
+											<td th:text="${questao.disciplina.nomeDisciplina}"></td>
+											<td th:text="${questao.dificuldade}"></td>
+											<td th:text="${questao.tipoQuestao}"></td>
+											<td th:if="${cargo} == 'Coordenador'" th:text="${questao.usuario.nome}"></td>
+											<td th:text="${questao.dataCriacao}"></td>
+											<td class="tdAcoes">
+												<div class="btn-group">
+													<!-- th:onclick="'javascript:RequisicaoAjax( \'editarQuestao/\',\'' + ${questao.idQuestao} + '\');'" -->
+													<a title="Editar" th:href="@{'/home/editarQuestao/' + ${questao.idQuestao}}"  class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+													<button title="Visualizar" th:onclick="'javascript:RequisicaoAjax( \'visualizarQuestao/\',\'' + ${questao.idQuestao} + '\');'" type="button" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></button>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<button id="btnVoltar" type="button" class="btn btn-default btnVoltar">Voltar</button>
+						</div>
+					</div>	
+				</div>	
+			</div>	
+		</div>	
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

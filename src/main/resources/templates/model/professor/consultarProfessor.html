@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+	<head>
+			<title> Consultar Professor</title>
+			<object th:replace="util/imports :: Osimports"></object>
+				
+			<!-- Datatable -->
+			<script src="/js/DataTableExemplojs.js" th:src="@{/js/DataTableExemplojs.js}"></script>
+
+
+			<script>
+				$(document).ready(function(){
+					$('#btnVoltar').focus();
+				});
+				
+			</script>
+
+	</head>
+	<body>
+		<object th:replace="util/header :: header"></object>
+		<div class="container-fluid" role="complementary"> 
+			<div class="panel panel-default" style="display: inline">
+				<div class="panel-heading">
+					<div class="row">
+						 <h1 style="text-align:center" class="page-header light"> Consultar - Professor
+					
+						 </h1>
+					</div>
+				 </div>
+				<div class="panel-body" >
+					<div class="panel panel-default" style="display: inline">
+						<div class="panel-body" >
+							<div class="table-responsive">
+								<table id="example" class="display table table-striped table-bordered  table-hover dt-responsive">
+									<thead>
+										<tr>
+											<th>Nome</th>
+											<th>CPF</th>
+											<th>ações</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Mamede</td>
+											<td>000.000.000-00</td>
+											<td class="tdAcoes">
+												<div class="btn-group">
+													<button title="Editar" type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
+													<button title="Remover" type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<button id="btnVoltar" type="button" class="btn btn-default btnVoltar">Voltar</button>
+						</div>
+					</div>	
+				</div>	
+			</div>	
+		</div>	
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

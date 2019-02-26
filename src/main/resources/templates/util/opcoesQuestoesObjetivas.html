@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<title>Insert title here</title>
+</head>
+<body>
+	<form>
+		<div th:fragment="opcoesObjetivas">
+			<table class="table table-bordered table-striped">
+				<thead id="TipoQuestaoCadastroEnunciado">
+					<tr>
+						<th>Opção</th>
+						<th>Opção Correta</th>
+					</tr>
+				</thead>
+				<!--<tbody id="TipoQuestaoCadastro">
+					<tr th:each="opcao,stat : ${questao.opcoesObjetivas}">
+						<td><input  th:text="${opcao.getEnunciado()}" th:value="${opcao.getEnunciado()}" th:name="|opcoesObjetivas[${stat.index}]|"></input></td>
+						<td><input  type="radio" name="respostaCerta" th:name="|opcoesObjetivas[${stat.index}]|" th:checked="${opcao.respostaCerta}"></input></td>
+					</tr>
+				</tbody>-->
+				
+				<tbody id="TipoQuestaoCadastro">
+					<tr th:each="opcao,stat : *{opcoesObjetivas}">
+						<td><input  th:field="*{opcoesObjetivas[__${stat.index}__].enunciado}" th:text="${opcao.enunciado}" th:value="${opcao.enunciado}"></input></td>
+						<td><input  th:field="*{opcoesObjetivas[__${stat.index}__].respostaCerta}" th:value="true" type="radio" th:name="${opcao.respostaCerta}"  th:checked="${opcao.respostaCerta}"></input></td>
+					</tr>
+				</tbody>
+				<!-- th:field="*{opcoesObjetivas[__${stat.index}__].enunciado}" -->
+			</table>
+		</div>
+	</form>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Cadastrar Questão</title>
+<object th:replace="util/imports :: Osimports"></object>
+
+<!--  <script src="/js/OpcoesQuestoes.js" th:src="@{/js/OpcoesQuestoes.js}"></script>-->
+<script src="/js/btnVoltar.js" th:src="@{/js/btnVoltar.js}"></script>
+<script src="/js/tinymce/tinymce.min.js"
+	th:src="@{/js/tinymce/tinymce.min.js}"></script>
+<script src="/js/tinymce/themes/modern/theme.min.js"
+	th:src="@{/js/tinymce/themes/modern/theme.min.js}"></script>
+<script type="text/javascript" src="/js/tinymce/langs/pt_BR.js"
+	th:src="@{/js/tinymce/langs/pt_BR.js}"></script>
+<script src="/js/textareaTinyMCE.js" th:src="@{/js/textareaTinyMCE.js}"></script>
+<script src="/js/Questao.js" th:src="@{/js/Questao.js}"></script>
+
+</head>
+<body>
+
+	<object th:replace="util/header :: header"></object>
+
+
+	<div class="container-fluid" role="complementary">
+		<div class="panel panel-default" style="display: inline">
+			<div class="panel-heading">
+				<div class="row">
+					<h1 id="TituloDaPagina" style="text-align: center"
+						class="page-header light">Cadastra - Questão</h1>
+				</div>
+			</div>
+			<div class="alert alert-success" role="alert"
+				th:if="${mensagemSucesso != null}">
+				<span th:text="${mensagemSucesso}"></span>
+			</div>
+			<div class="alert alert-danger" role="alert"
+				th:if="${mensagemErro != null}">
+				<span th:text="${mensagemErro}"></span>
+			</div>
+			<div class="panel-body">
+				<div class="panel panel-default" style="display: inline">
+					<div class="panel-body">
+						<form method="post" id="questaoForm"
+							action="/home/cadastrarQuestao" th:action="${action}" th:object="${questao}">
+							
+							<div class="form-group" id="DropDownDisciplinaDiv">
+								<label for="descricao">*Descrição</label>
+								<input class="form-control" type="text" name="descricao" th:field="*{descricao}"></input>
+							</div>
+							
+							<div th:if="${#fields.hasErrors('descricao')}"
+								class="alert alert-danger" role="alert">
+								<span th:errors="*{descricao}">campo obrigatório</span>
+							</div>
+							
+							<div class="form-group" id="DropDownDisciplinaDiv">
+								<label for="Disciplina">*Disciplina</label> <select
+									th:field="*{disciplina}" name="nomeDisciplina"
+									class="form-control" id="DropDownDisciplina">
+									<option th:each="disciplina : ${disciplinas}" value=" "
+										th:value="${{disciplina}}"
+										th:text="${disciplina.nomeDisciplina}"></option>
+								</select>
+							</div>
+							<div th:if="${#fields.hasErrors('disciplina')}"
+								class="alert alert-danger" role="alert">
+								<span th:errors="*{disciplina}">campo obrigatório</span>
+							</div>
+
+							<!--  <div class="form-group" id="DropDownDificuldadeDiv">
+								<label for="DificuldadeQuestao">*Dificuldade</label> <select
+									th:field="*{dificuldade}" name="DificuldadeQuestao"
+									class="form-control" id="DropDownDificuldade">
+									<option value="facil">Fácil</option>
+									<option value="media">Média</option>
+									<option value="dificil">Difícil</option>
+								</select>
+							</div>-->
+							
+							<div th:if="${#fields.hasErrors('dificuldade')}"
+								class="alert alert-danger" role="alert">
+								<span th:errors="*{dificuldade}">campo obrigatórior</span>
+							</div>
+							
+							<div class="form-group" id="DropDownTaxonomiaDeBloom">
+								<label for="classificacaoTaxonomiaBloom">*Taxonomia de Bloom</label>
+								<select th:field="*{classificacaoTaxonomiaBloom}" name="classificacaoTaxonomiaBloom" class="form-control">
+									<th:block th:each="categoria : ${listaTaxonomiaDeBloom}">
+										<option th:value="${categoria}" th:text="${categoria.getValor()}">
+											
+										</option>
+									</th:block>
+									
+								</select>
+							</div>
+							
+							<div class="form-group" id="DropDownTipoQuestaoDiv">
+								<label for="TipoQuestao">*Tipo da Questão</label> 
+								<select	th:field="*{tipoQuestao}" name="TipoQuestao" class="form-control dropTipoQuestao">
+									<option value="objetiva" selected="selected">Objetiva</option>
+									<option value="verdadeiroOuFalso">Verdadeiro Ou Falso</option>
+									<option value="porQue">Por que..</option>
+								</select>
+							</div>
+
+							<div class="form-group" id="TextEnunciadoDiv">
+								<label for="EnunciadoDaQuestao">*Conteudo da Questão</label>
+								<textarea th:field="*{conteudoEnunciado}"
+									th:utext="${html}" id="tinymce"
+									name="EnunciadoDaQuestao" class="form-control" rows="5"></textarea>
+							</div>
+							<div th:if="${#fields.hasErrors('enunciado')}"
+								class="alert alert-danger" role="alert">
+								<span th:errors="*{conteudoEnunciado}">campo obrigatório</span>
+							</div>
+							
+							<div th:if="${#fields.hasErrors('tipoQuestao')}"
+								class="alert alert-danger" role="alert">
+								<span th:errors="*{tipoQuestao}">campo obrigatório</span>
+							</div>
+							<!-- Enviar requisições ajax para trazer uma lista com 5 objetos de opções já preenchidos por padrão -->
+							<!-- <h3 id="TituloOpcoes">*Opções</h3> -->
+							<!-- Modificada com Jquery no arquivo OpcoesQuestoes.js em resources/static/js/opcoesQuestoes.js  -->
+
+							<!-- <div id="localDasOpcoes"></div> -->
+							<!-- <table class="table table-bordered table-striped">
+								<thead id="TipoQuestaoCadastroEnunciado">
+									<tr>
+										<th>Opção</th>
+										<th>Opção Correta</th>
+									</tr>
+								</thead>
+								<tbody id="TipoQuestaoCadastro">
+									<tr th:each="opcao,stat : *{opcoesObjetivas}">
+										<td><input type="text"
+											th:field="*{opcoesObjetivas[__${stat.index}__].enunciado}"
+											 th:value="${opcao.enunciado}" th:text="${opcao.enunciado}"></input></td>
+										<td><input th:id="|radio${stat.index}|" th:value="true"
+											type="radio" th:name="respostaCerta"
+											th:checked="${opcao.respostaCerta}"></input> 
+											<input th:value="false" th:id="|radioHidden${stat.index}|"
+											th:field="*{opcoesObjetivas[__${stat.index}__].respostaCerta}"
+											type="hidden"></input></td>
+
+									</tr>
+								</tbody>
+							</table> -->
+
+							<div class="form-group">
+								<button id="btnSubmitQuestao" type="submit"
+									class="btn btn-primary">Cadastra Questão</button>
+								<button type="button" class="btn btn-default btnVoltar">Voltar</button>
+							</div>
+							
+
+							<input type="hidden" th:field="*{idQuestao}" th:value="${idQuestaoEdit}"/>
+							<input type="hidden" th:field="*{enunciado}" th:value="${enunciadoEdit}"/>
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

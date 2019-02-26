@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<meta charset="UTF-8"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+<meta http-equiv="Content-Language" content="pt-br"></meta>
+
+
+</head>
+<body>
+	<div th:fragment="modal" >
+		<div  class="modal fade" id="Modal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title" id="exampleModalLabel" th:text="${tituloModal}">Erro ao carregar titulo</h1>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<h2>Conteudo da Questão: </h2>
+						<span th:utext="${conteudoBodyModal}"></span>
+						<h2>Descrição: </h2>
+						<p th:text="${questao.descricao}"></p>
+						<h2>Situação: </h2>
+						<p th:text="${questao.situacao}"></p>
+						<h2>Disciplina: </h2>
+						<p th:text="${questao.disciplina}"></p>
+						<h2>Dificuldade: </h2>
+						<p th:text="${questao.dificuldade}"></p>
+						<h2>Tipo da questão: </h2>
+						<p th:text="${questao.tipoQuestao}"></p>
+						<h2>Responsável: </h2>
+						<p th:text="${questao.usuario.nome}"></p>
+						<h2>Data de Inserção: </h2>
+						<p th:text="${questao.dataCriacao}"></p>
+						<h2>Ultimo uso em:</h2>
+						<p th:text="${questao.dataDeUso}"></p>
+						<h2>Classificação na Taxonomia de Bloom</h2>
+						<span th:text="${questao.classificacaoTaxonomiaBloom.valor}"></span>
+						
+					</div>
+					<div class="modal-footer">
+						<button th:text="${tituloBotaoDismissModal}" type="button" class="btn btn-secondary"
+							data-dismiss="modal">Cancelar</button>
+						<th:block th:if="${urlBotaoModal != null}">
+							<a th:href="${urlBotaoModal}" th:text="${tituloBotaoModal}" class="btn btn-primary"></a>
+						</th:block>
+						<!--th:href="|/home/consultarDisciplina/ConfirmarExclusaoDisciplina/${idDisciplina}|"-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

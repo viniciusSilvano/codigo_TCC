@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+		<head>
+			<title> Cadastrar Prova</title>
+
+
+			<object th:replace="util/imports :: Osimports"></object>
+		
+			<script src="/js/CamposProva.js" th:src="@{/js/CamposProva.js}"></script>
+			<script src="/js/DataTableExemplojs.js" th:src="@{/js/DataTableExemplojs.js}"></script>
+
+		</head>
+		<body>
+			
+			<object th:replace="util/header :: header"></object>
+
+	
+		<div class="container-fluid" role="complementary"> 
+			<div class="panel panel-default" style="display: inline">
+				 <div class="panel-heading">
+					<div class="row">
+						 <h1 style="text-align:center" class="page-header light">  Cadastra - Prova
+							
+						 </h1>
+					</div>
+				</div>
+				<div class="panel-body" >
+					<div class="panel panel-default" style="display: inline">
+						<div class="panel-body" >
+							<fieldset>
+								<legend>Questões Disponíveis</legend>
+								<div class="table-responsive">
+									<table id="example" class="table table-bordered table-striped table-hover dt-responsive">
+										<caption>Questões Disponíveis</caption>
+										<thead>
+											<tr>
+												<th>Conhecimento</th>
+												<th>Compreensão</th>
+												<th>Aplicação</th>
+												<th>Análise</th>
+												<th>Síntese</th>
+												<th>Avaliação</th>
+												<th>Disciplina</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="disciplina : ${disciplinas}">
+												<td th:text="${disciplina.qntBloomConhecimento}"></td>
+												<td th:text="${disciplina.qntBloomCompreensao}"></td>
+												<td th:text="${disciplina.qntBloomAplicacao}"></td>
+												<td th:text="${disciplina.qntBloomAnalise}"></td>
+												<td th:text="${disciplina.qntBloomSintese}"></td>
+												<td th:text="${disciplina.qntBloomAvaliacao}"></td>
+												<td th:text="${disciplina.nomeDisciplina}"></td>
+											</tr>
+											<!--  <tr>
+												<td>10</td>
+												<td>5</td>
+												<td>5</td>
+												<td>Programação I</td>
+											</tr>
+											<tr>
+												<td>10</td>
+												<td>5</td>
+												<td>5</td>
+												<td>Programação II</td>
+											</tr>
+											<tr>
+												<td>10</td>
+												<td>5</td>
+												<td>5</td>
+												<td>Laboratório de Banco de Dados</td>
+											</tr>
+											<tr>
+												<td>10</td>
+												<td>5</td>
+												<td>5</td>
+												<td>Banco de Dados</td>
+											</tr>
+											<tr>
+												<td>10</td>
+												<td>5</td>
+												<td>5</td>
+												<td>Programação III</td>
+											</tr>-->
+										</tbody>
+									</table>
+								</div>
+							</fieldset>
+							<hr/>
+							<form method="post" action="/home/cadastrarProva" th:object="${prova}">
+							<fieldset>
+								<legend>Dados da Prova</legend>		
+							
+
+									<!-- <fieldset class="scheduler-border" id="fieldsetDisciplinaQntdQuestoes">-->
+										<div class="form-group" id="DropDownDisciplinaDiv">
+											<label for="Disciplina">*Disciplina</label>
+											<select th:field="*{disciplina}" name="nomeDisciplina" class="form-control" id="DropDownDisciplina">
+												<option th:each="disciplina : ${disciplinas}"
+													th:value="${{disciplina}}" th:text="${disciplina.nomeDisciplina}"></option>
+											</select>
+										</div>
+										
+										
+									<!--</fieldset>-->
+									
+									
+									
+									<div class="form-group" id="DescricaoProvaDiv">
+										<label for="DescricaoProva">*Descrição</label>
+										<input  th:field="*{descricao}" placeholder="Um Lembrete" name="descricao" type="text" class="form-control"/>
+									</div>
+									
+									<div class="form-group" id="TipoProvaDiv">
+										<label for="tipoProva">Tipo</label>
+										<select th:field="*{tipoProva}" name="tipoProva" class="form-control" >
+											<option value="prova">Prova</option>
+											<option value="teste">Teste</option>
+											<option value="simulado">Simulado</option>
+										</select>
+									</div>
+									
+									<div class="form-group" id="qntdTipoProvaDiv">
+										<label for="TiposProva">Quantidade de Tipos</label>
+										<input th:field="*{qntTiposProvas}" name="TiposProva" type="number" class="form-control"/>
+									</div>
+									
+									<div class="row">
+										<fieldset id="fieldsetQntdQuestoes">
+											<legend>Quantidade de Questões</legend>
+											
+											<table class="table table-bordered table-striped table-hover dt-responsive">
+												<thead>
+													<tr><th>Fáceis</th>
+													<th>Médias</th>
+													<th>Difíceis</th></tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>
+															<label for="qntBloomConhecimento">Conhecimento</label>
+															<input th:field="*{qntBloomConhecimento}"  name="qntBloomConhecimento" th:value="0" type="number" class="form-control"/>
+														
+														
+															<label for="qntBloomCompreensao">Compreensão</label>
+															<input th:field="*{qntBloomCompreensao}"  name="qntBloomCompreensao" th:value="0"  type="number" class="form-control"/>
+														</td>
+													
+													
+														<td>
+															<label for="qntBloomAplicacao">Aplicação</label>
+															<input th:field="*{qntBloomAplicacao}"  name="qntBloomAplicacao" th:value="0" type="number" class="form-control"/>
+														
+														
+															<label for="qntBloomAnalise">Análise</label>
+															<input th:field="*{qntBloomAnalise}"  name="qntBloomAnalise" th:value="0" type="number" class="form-control"/>	
+														</td>
+												
+													
+														<td>
+															<label for="qntBloomSintese">Síntese</label>
+															<input th:field="*{qntBloomSintese}"  name="qntBloomSintese" th:value="0" type="number" class="form-control"/>	
+														
+													
+															<label for="qntBloomAvaliacao">Avaliação</label>
+															<input th:field="*{qntBloomAvaliacao}"  name="qntBloomAvaliacao" th:value="0" type="number" class="form-control"/>
+														</td>
+													</tr>	
+												</tbody>
+											</table>
+											<!--<div class="form-group col-sm-2" id="qntdQuestoesProvaFacilDiv">
+												<label for="qntdQuestoesProvaFacil">Fáceis</label>
+												<input th:field="*{qntQuestoesFaceis}" value="1" name="qntdQuestoesProvaFacil" type="number" class="form-control" min="1" max="5"/>
+											</div>
+
+
+											<div class="form-group col-sm-2" id="qntdQuestoesProvaMediaDiv">
+												<label for="qntdQuestoesProvaMedia">Médias</label>
+												<input th:field="*{qntQuestoesMedias}" value="1" name="QntdQuestoesProvaMedia" type="number" class="form-control" min="1" max="5"/>
+											</div>
+
+											<div class="form-group col-sm-2" id="qntdQuestoesProvaDificilDiv">
+												<label for="qntdQuestoesProvaDificil">Difíceis</label>
+												<input th:field="*{qntQuestoesDificeis}" value="1" name="qntdQuestoesProvaDificil" type="number" class="form-control" min="1" max="5"/>
+											</div>-->
+										</fieldset>
+									</div>
+									
+									<div class="form-group">
+										<button id="btnSubmitProva" type="submit" class="btn btn-primary">Gerar</button>
+										<button type="button" class="btn btn-default btnVoltar">Voltar</button>
+									</div>
+							</fieldset>
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

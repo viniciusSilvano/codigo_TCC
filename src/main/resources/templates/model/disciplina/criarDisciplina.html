@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Cadastrar Disciplina</title>
+<object th:replace="util/imports :: Osimports"></object>
+
+
+
+<script>
+				$(document).ready(function(){
+					$('#btnVoltar').focus();
+				});
+				
+			</script>
+
+</head>
+<body>
+
+	<object th:replace="util/header :: header"></object>
+	<div class="container-fluid" role="complementary">
+		<div class="panel panel-default" style="display: inline">
+			<div class="panel-heading">
+				<div class="row">
+					<h1 th:text="${titulo}" style="text-align: center"
+						class="page-header light">Cadastrar - Disciplina</h1>
+				</div>
+			</div>
+			<div class="alert alert-success" role="alert"
+				th:if="${mensagemSucesso != null}">
+				<span th:text="${mensagemSucesso}"></span>
+			</div>
+			<div class="alert alert-danger" role="alert"
+				th:if="${mensagemErro != null}">
+				<span th:text="${mensagemErro}"></span>
+			</div>
+			<div class="panel-body">
+				<div class="panel panel-default" style="display: inline">
+					<div class="panel-body">
+						<form method="post" th:action="${action}"
+							action="/home/cadastrarDisciplina" th:object="${disciplina}">
+							<div class="form-group">
+								<label for="nomeDisciplina">*Nome da Disciplina</label> <input
+									th:field="*{nomeDisciplina}" name="nomeDisciplina"
+									class="form-control" type="text"> </input>
+							</div>
+							<div th:if="${#fields.hasErrors('nomeDisciplina')}"
+								class="alert alert-danger" role="alert">
+								<span th:errors="*{nomeDisciplina}">Name Error</span>
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary">Cadastrar</button>
+								<button type="button" class="btn btn-default btnVoltar">Voltar</button>
+							</div>
+
+							<input id="hiddenid" type="hidden" name="idDisciplina"
+								th:value="${disciplina.idDisciplina}"></input>
+							
+							<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

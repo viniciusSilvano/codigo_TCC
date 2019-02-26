@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8"></meta>
+		<title>Homologar Questão</title>
+		<object th:replace="util/imports :: Osimports"></object>
+	
+		<script>
+			$(document).ready(function(){
+				$('#btnVoltar').focus();
+			});
+			
+			function RequisicaoAjax(url,acao,id){
+				$.ajax({
+					url: "/home/" + url + acao + id,
+					success: function(data){
+						$('#localDaModal').html(data)
+						$('#Modal').modal("show");
+					}
+				});
+			}
+			
+		</script>
+	</head>
+	
+	<body>
+		<object th:replace="util/header :: header"></object>
+		<div id="localDaModal"></div>
+		<div class="container-fluid" role="complementary"> 
+			<div class="panel panel-default" style="display: inline">
+				<div class="panel-heading">
+					<div class="row">
+						 <h1 style="text-align:center" class="page-header light"> Homologar - Questão
+					
+						 </h1>
+					</div>
+				 </div>
+				<div class="alert alert-success" role="alert"
+					th:if="${mensagemSucesso != null}">
+					<span th:text="${mensagemSucesso}"></span>
+				</div>
+				<div class="alert alert-danger" role="alert"
+					th:if="${mensagemErro != null}">
+					<span th:text="${mensagemErro}"></span>
+				</div>
+				<div class="panel-body" >
+					<div class="panel panel-default" style="display: inline">
+						<div class="panel-body" >
+							<div class="table-responsive">
+								<table id="example" class="display table table-striped table-bordered  table-hover dt-responsive">
+									<thead>
+										<tr>
+											<th>Descrição</th>
+											<th>Taxonomia de Bloom</th>
+											<th>Situação</th>
+											<th>Dificuldade</th>
+											<th>Disciplina</th>
+											<th>Tipo da Questão</th>
+											<th>Responsável</th>
+											<th>Data De Criação</th>
+											<th>Ações</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="questao : ${questoes}">
+											<td th:text="${questao.descricao}"></td>
+											<td th:text="${questao.classificacaoTaxonomiaBloom.getValor()}"></td>
+											<td th:text="${questao.situacao}"></td>
+											<td th:text="${questao.dificuldade}"></td>
+											<td th:text="${questao.disciplina.nomeDisciplina}"></td>
+											<td th:text="${questao.tipoQuestao}"></td>
+											<td th:text="${questao.usuario.nome}"></td>
+											<td th:text="${questao.dataCriacao}"></td>
+											<td class="tdAcoes">
+												<div class="btn-group">
+													<button title="Homologar" type="button" th:onclick="'javascript:RequisicaoAjax(\'homologarQuestao/\' , \'Homologar/\' , \'' + ${questao.idQuestao} + '\');'" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span></button>
+													<!--<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>-->
+													<button title="Enviar para revisão" type="button" th:onclick="'javascript:RequisicaoAjax(\'homologarQuestao/\' , \'Revisao/\' , \'' + ${questao.idQuestao} + '\');'" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></button>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<button id="btnVoltar" type="button" class="btn btn-default btnVoltar">Voltar</button>
+						</div>
+					</div>	
+				</div>	
+			</div>	
+		</div>	
+	</body>
+</html>

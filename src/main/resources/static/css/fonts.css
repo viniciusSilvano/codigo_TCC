@@ -1,0 +1,20 @@
+				/* Fonts */
+				@media (max-width: 750px) {
+
+					body{
+						font-size: 14px;
+					}
+
+					#TituloNavHeader{
+						font-size: 14px;
+					}
+
+					#TituloNavHeaderSmall{
+						display: none;
+					}
+
+					#TituloDaPagina{
+						font-size: 15px;
+					}
+
+				}
